@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guessing Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Guess the Number</h1>
+        <p>Pick a number between 0 and 10</p>
+        <input type="number" id="userInput" placeholder="Enter number" min="0" max="10">
+        <button onclick="checkGuess()">Guess</button>
+        <p id="message"></p>
+        <button onclick="resetGame()">Play Again</button>
+    </div>
+
+    <script>
+        let randomNumber = Math.floor(Math.random() * 11);
+
+        function checkGuess() {
+            const userGuess = Number(document.getElementById('userInput').value);
+            const message = document.getElementById('message');
+
+            if (userGuess === randomNumber) {
+                message.textContent = 'Correct! You guessed the number.';
+            } else if (userGuess > randomNumber) {
+                message.textContent = 'Too high! Try again.';
+            } else {
+                message.textContent = 'Too low! Try again.';
+            }
+        }
+
+        function resetGame() {
+            randomNumber = Math.floor(Math.random() * 11);
+            document.getElementById('message').textContent = '';
+            document.getElementById('userInput').value = '';
+        }
+    </script>
+</body>
+</html>
