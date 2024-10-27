@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz App</title>
+    <style>
+      .quiz-container {
+        border: 1px solid black;
+        max-width: 300px;
+        margin: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="quiz-container">
+      <h2 id="question" style="text-align: center"></h2>
+      <div id="choices">
+        <label
+          ><input type="radio" name="choice" value="0" />
+          <span id="choice0"></span></label
+        ><br />
+        <label
+          ><input type="radio" name="choice" value="1" />
+          <span id="choice1"></span></label
+        ><br />
+        <label
+          ><input type="radio" name="choice" value="2" />
+          <span id="choice2"></span></label
+        ><br />
+        <label
+          ><input type="radio" name="choice" value="3" />
+          <span id="choice3"></span></label
+        ><br />
+      </div>
+      <button onclick="submitAnswer()">Submit</button>
+    </div>
+
+    <script>
+      const questions = [
+        {
+          question: 'Capital of Cameroon?',
+          choices: ['Douala', 'Yaounde', 'New York', 'Center Region'],
+          answer: 1,
+        },
+        {
+          question: '_ * 2 - 4 + 2 * 5 = 13',
+          choices: ['2.5', '3.5', '5', '7.5'],
+          answer: 1,
+        },
+        {
+          question: 'Who is Steffen Curry?',
+          choices: [
+            'An Astronaut',
+            'A footballer',
+            'An Actor',
+            'An NBA Player',
+          ],
+          answer: 3,
+        },
+      ];
+
+      let currentQuestion = 0,
+        score = 0;
+
+      function loadQuestion() {
+        const q = questions[currentQuestion];
+        document.getElementById('question').innerText = q.question;
+        q.choices.forEach((choice, index) => {
+          document.getElementById('choice' + index).innerText = choice;
+        });
+      }
+
+      function submitAnswer() {
+        const selected = document.querySelector('input[name="choice"]:checked');
+        if (
+          selected &&
+          parseInt(selected.value) === questions[currentQuestion].answer
+        )
+          score++;
+        currentQuestion++;
+        selected && (selected.checked = false);
+        currentQuestion < questions.length ? loadQuestion() : showScore();
+      }
+
+      function showScore() {
+        document.querySelector(
+          '.quiz-container'
+        ).innerHTML = `<h2>Your score: ${score}/${questions.length}</h2>`;
+      }
+
+      loadQuestion();
+    </script>
+  </body>
+</html>
